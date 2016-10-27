@@ -9,8 +9,8 @@ cache:
         - "~/.platformio"
 
 env:
-    - PLATFORMIO_CI_SRC=test
-    - PLATFORMIO_BUILD_FLAGS=-Wno-parentheses
+- PLATFORMIO_CI_SRC=test
+- PLATFORMIO_BUILD_FLAGS=-Wno-parentheses
 
 install:
     - pip install -U platformio
