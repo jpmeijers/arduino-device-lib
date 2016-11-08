@@ -182,14 +182,19 @@ bool TheThingsNetwork::join(int8_t retries, uint32_t retryDelay) {
       retries--;
     }
     if (!sendCommand(F("mac join otaa"))) {
+      debugPrintLn("Please reset the arduino device if this occurs to much");
       debugPrintLn(F("Send join command failed"));
       delay(retryDelay);
       continue;
     }
     String response = readLine();
-    if (response != F("accepted")) {
+    if (response != F("accepted")) {    
       debugPrint(F("Join not accepted: "));
-      debugPrintLn(response);
+      if (response == "denied") {
+	debugPrintLn("denied. Check your coverage, keys(AppEui and AppKey) and backend status.");
+      } else if (response == "no_free_ch") {
+        debugPrintLn("no_free_ch. Please reset the arduino device if this occurs to much");
+      }
       delay(retryDelay);
       continue;
     }
